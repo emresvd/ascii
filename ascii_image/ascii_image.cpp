@@ -1,8 +1,8 @@
-#include <iostream>
 #include <opencv2/opencv.hpp>
+#include <windows.h>
+#include <iostream>
 #include <string>
 #include <cmath>
-#include <windows.h>
 
 std::string chars = "  .,:;i1tfLCG08@";
 int scale_percent = 50;

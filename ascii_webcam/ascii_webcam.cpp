@@ -34,31 +34,25 @@ void setCursorVisible(bool visible) {
 int main() {
     setCursorVisible(false);
     while (cap.isOpened()) {
-        try {
-            cap >> frame;
+        cap >> frame;
+        if (frame.empty()) break;
+        resize(frame, frame, cv::Size(frame.cols * scale_percent / 100, frame.rows * scale_percent / 100), 0, 0, cv::INTER_AREA);
 
-            if (frame.empty()) break;
-            resize(frame, frame, cv::Size(frame.cols * scale_percent / 100, frame.rows * scale_percent / 100), 0, 0, cv::INTER_AREA);
+        changeCursorPosition(0, 0);
+        ascii_art = "";
 
-            changeCursorPosition(0, 0);
-            ascii_art = "";
-
-            for (i = 0; i < frame.rows; i++) {
-                for (j = 0; j < frame.cols; j++) {
-                    v = frame.at<cv::Vec3b>(i, j);
-                    rgb_ave = (v[0] + v[1] + v[2]) / 3;
-                    index = int(rgb_ave / 255.0 * CHARS.length());
-                    char_ = CHARS[index];
-                    ascii_art += char_;
-                    ascii_art += " ";
-                }
-                ascii_art += "\n";
+        for (i = 0; i < frame.rows; i++) {
+            for (j = 0; j < frame.cols; j++) {
+                v = frame.at<cv::Vec3b>(i, j);
+                rgb_ave = (v[0] + v[1] + v[2]) / 3;
+                index = int(rgb_ave / 255.0 * CHARS.length());
+                char_ = CHARS[index];
+                ascii_art += char_;
+                ascii_art += " ";
             }
-            std::cout << ascii_art << std::endl;
+            ascii_art += "\n";
         }
-        catch (const std::exception& e) {
-            break;
-        }
+        std::cout << ascii_art;
     }
 
     cap.release();

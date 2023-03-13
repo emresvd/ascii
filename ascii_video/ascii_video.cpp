@@ -1,0 +1,62 @@
+#include <opencv2/opencv.hpp>
+#include <windows.h>
+#include <iostream>
+
+const std::string chars = "  .,:;i1tfLCG08@";
+int scale_percent = 10;
+std::string ascii_art;
+cv::Mat frame;
+
+COORD coord;
+HANDLE out;
+CONSOLE_CURSOR_INFO cursorInfo;
+
+int rgb_ave;
+int index;
+char char_;
+int i, j;
+cv::Vec3b v;
+
+void changeCursorPosition(int x, int y) {
+    coord.X = x;
+    coord.Y = y;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+}
+
+void setCursorVisible(bool visible) {
+    out = GetStdHandle(STD_OUTPUT_HANDLE);
+    GetConsoleCursorInfo(out, &cursorInfo);
+    cursorInfo.bVisible = visible;
+    SetConsoleCursorInfo(out, &cursorInfo);
+}
+
+int main(int argc, char* argv[]) {
+    cv::VideoCapture cap(argv[argc - 1]);
+    setCursorVisible(false);
+
+    while (cap.isOpened()) {
+        cap >> frame;
+        if (frame.empty()) break;
+        resize(frame, frame, cv::Size(frame.cols * scale_percent / 100, frame.rows * scale_percent / 100), 0, 0, cv::INTER_AREA);
+
+        changeCursorPosition(0, 0);
+        ascii_art = "";
+
+        for (i = 0; i < frame.rows; i++) {
+            for (j = 0; j < frame.cols; j++) {
+                v = frame.at<cv::Vec3b>(i, j);
+                rgb_ave = (v[0] + v[1] + v[2]) / 3;
+                index = static_cast<int>(rgb_ave / 255.0 * chars.length());
+                char_ = chars[index];
+                ascii_art += char_;
+                ascii_art += " ";
+            }
+            ascii_art += "\n";
+        }
+
+        std::cout << ascii_art;
+    }
+
+    cap.release();
+    return 0;
+}

@@ -4,7 +4,7 @@
 #include <string>
 #include <cmath>
 
-std::string chars = "  .,:;i1tfLCG08@";
+const std::string CHARS = "  .,:;i1tfLCG08@";
 int scale_percent = 50;
 
 int main(int argc, char* argv[]) {
@@ -27,8 +27,8 @@ int main(int argc, char* argv[]) {
         for (j = 0; j < image.cols; j++) {
             v = image.at<cv::Vec3b>(i, j);
             rgb_ave = (v[0] + v[1] + v[2]) / 3;
-            index = floor(rgb_ave / 255.0 * (chars.length() - 1));
-            char_ = chars[index];
+            index = floor(rgb_ave / 255.0 * (CHARS.length() - 1));
+            char_ = CHARS[index];
             ascii_art += char_;
             ascii_art += " ";
         }

@@ -398,3 +398,5 @@ FodyWeavers.xsd
 *.sln.iml
 
 *.commiter
+*.png
+*.mp4

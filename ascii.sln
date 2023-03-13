@@ -5,6 +5,8 @@ VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ascii_webcam", "ascii_webcam\ascii_webcam.vcxproj", "{C6692EC1-6D0C-442C-8C84-D5E5CF1BD37B}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ascii_image", "ascii_image\ascii_image.vcxproj", "{33B496EC-2BD5-4821-896D-2BF8817CCF6B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{C6692EC1-6D0C-442C-8C84-D5E5CF1BD37B}.Release|x64.Build.0 = Release|x64
 		{C6692EC1-6D0C-442C-8C84-D5E5CF1BD37B}.Release|x86.ActiveCfg = Release|Win32
 		{C6692EC1-6D0C-442C-8C84-D5E5CF1BD37B}.Release|x86.Build.0 = Release|Win32
+		{33B496EC-2BD5-4821-896D-2BF8817CCF6B}.Debug|x64.ActiveCfg = Debug|x64
+		{33B496EC-2BD5-4821-896D-2BF8817CCF6B}.Debug|x64.Build.0 = Debug|x64
+		{33B496EC-2BD5-4821-896D-2BF8817CCF6B}.Debug|x86.ActiveCfg = Debug|Win32
+		{33B496EC-2BD5-4821-896D-2BF8817CCF6B}.Debug|x86.Build.0 = Debug|Win32
+		{33B496EC-2BD5-4821-896D-2BF8817CCF6B}.Release|x64.ActiveCfg = Release|x64
+		{33B496EC-2BD5-4821-896D-2BF8817CCF6B}.Release|x64.Build.0 = Release|x64
+		{33B496EC-2BD5-4821-896D-2BF8817CCF6B}.Release|x86.ActiveCfg = Release|Win32
+		{33B496EC-2BD5-4821-896D-2BF8817CCF6B}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

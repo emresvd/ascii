@@ -5,7 +5,7 @@
 const std::string CHARS = "   .,:;i1tfLCG08@";
 int scale_percent = 20;
 std::string ascii_art;
-cv::VideoCapture vid(0);
+cv::VideoCapture cap(0);
 cv::Mat frame;
 
 COORD coord;
@@ -33,9 +33,9 @@ void setCursorVisible(bool visible) {
 
 int main() {
     setCursorVisible(false);
-    while (true) {
+    while (cap.isOpened()) {
         try {
-            vid >> frame;
+            cap >> frame;
 
             if (frame.empty()) break;
             resize(frame, frame, cv::Size(frame.cols * scale_percent / 100, frame.rows * scale_percent / 100), 0, 0, cv::INTER_AREA);
@@ -61,6 +61,6 @@ int main() {
         }
     }
 
-    vid.release();
+    cap.release();
     return 0;
 }

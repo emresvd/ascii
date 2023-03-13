@@ -5,11 +5,13 @@
 using namespace cv;
 
 const std::string CHARS = "  .,:;i1tfLCG08@";
-int scale_percent = 10;
+int scale_percent = 20;
 std::string ascii_art;
 VideoCapture vid(0);
 Mat frame;
 COORD coord;
+HANDLE out;
+CONSOLE_CURSOR_INFO cursorInfo;
 
 void changeCursorPosition(int x, int y) {
     coord.X = x;
@@ -18,8 +20,7 @@ void changeCursorPosition(int x, int y) {
 }
 
 void setCursorVisible(bool visible) {
-    HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
-    CONSOLE_CURSOR_INFO cursorInfo;
+    out = GetStdHandle(STD_OUTPUT_HANDLE);
     GetConsoleCursorInfo(out, &cursorInfo);
     cursorInfo.bVisible = visible;
     SetConsoleCursorInfo(out, &cursorInfo);
@@ -40,7 +41,7 @@ int main() {
             for (int i = 0; i < frame.rows; i++) {
                 for (int j = 0; j < frame.cols; j++) {
                     int rgb_ave = (frame.at<Vec3b>(i, j)[0] + frame.at<Vec3b>(i, j)[1] + frame.at<Vec3b>(i, j)[2]) / 3;
-                    int index = int(rgb_ave / 255.0 * CHARS.length()) - 1;
+                    int index = int(rgb_ave / 255.0 * CHARS.length());
                     char char_ = CHARS[index];
                     ascii_art += char_;
                     ascii_art += " ";

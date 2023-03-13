@@ -400,4 +400,4 @@ FodyWeavers.xsd
 *.commiter
 *.png
 *.mp4
-*.ascii
+*ascii

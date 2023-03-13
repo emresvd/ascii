@@ -2,16 +2,21 @@
 #include <opencv2/opencv.hpp>
 #include <windows.h>
 
-using namespace cv;
-
-const std::string CHARS = "  .,:;i1tfLCG08@";
+const std::string CHARS = "   .,:;i1tfLCG08@";
 int scale_percent = 20;
 std::string ascii_art;
-VideoCapture vid(0);
-Mat frame;
+cv::VideoCapture vid(0);
+cv::Mat frame;
+
 COORD coord;
 HANDLE out;
 CONSOLE_CURSOR_INFO cursorInfo;
+
+int rgb_ave;
+int index;
+char char_;
+int i, j;
+cv::Vec3b v;
 
 void changeCursorPosition(int x, int y) {
     coord.X = x;
@@ -33,16 +38,17 @@ int main() {
             vid >> frame;
 
             if (frame.empty()) break;
-            resize(frame, frame, Size(frame.cols * scale_percent / 100, frame.rows * scale_percent / 100), 0, 0, INTER_AREA);
+            resize(frame, frame, cv::Size(frame.cols * scale_percent / 100, frame.rows * scale_percent / 100), 0, 0, cv::INTER_AREA);
 
             changeCursorPosition(0, 0);
             ascii_art = "";
 
-            for (int i = 0; i < frame.rows; i++) {
-                for (int j = 0; j < frame.cols; j++) {
-                    int rgb_ave = (frame.at<Vec3b>(i, j)[0] + frame.at<Vec3b>(i, j)[1] + frame.at<Vec3b>(i, j)[2]) / 3;
-                    int index = int(rgb_ave / 255.0 * CHARS.length());
-                    char char_ = CHARS[index];
+            for (i = 0; i < frame.rows; i++) {
+                for (j = 0; j < frame.cols; j++) {
+                    v = frame.at<cv::Vec3b>(i, j);
+                    rgb_ave = (v[0] + v[1] + v[2]) / 3;
+                    index = int(rgb_ave / 255.0 * CHARS.length());
+                    char_ = CHARS[index];
                     ascii_art += char_;
                     ascii_art += " ";
                 }
